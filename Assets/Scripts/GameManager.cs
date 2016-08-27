@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 	public GameObject GameOver;
 	public GameObject ResetGame;
 	public GameObject ExitGame;
-	public GameObject BalloonSpawners;
-	public GameObject Player;
+	public GameObject BlockSpawners;
+	public GameObject UIPaused;
 	public GameObject endGameObjects;
 
 	AudioSource music;
@@ -31,14 +31,15 @@ public class GameManager : MonoBehaviour
 		ResetGame.SetActive (false);
 		ExitGame.SetActive (false);
 		endGameObjects.SetActive (false);
-
-		BalloonSpawners.SetActive (true);
-		Player.SetActive (true);
+		UIPaused.SetActive (false);
+		BlockSpawners.SetActive (true);
+	
 	}
 
 	// setup the game
 	void Start ()
 	{
+		//Time.timeScale = 1f;
 		// get a reference to the GameManager component for use by other scripts
 		if (gm == null)
 			gm = this.gameObject.GetComponent<GameManager> ();
@@ -48,11 +49,27 @@ public class GameManager : MonoBehaviour
 	// this is the main game event loop
 	void Update ()
 	{
-		if (ScoreManager.score >= 250.0)
-		{  // check to see if beat game
-			finalScore = ScoreManager.score;
-			EndGame ();
+
+		if (Input.GetKeyDown (KeyCode.A))
+		{
+			if (Time.timeScale > 0f)
+			{
+				UIPaused.SetActive (true);
+				Time.timeScale = 0f;
+			}
+			else
+			{
+				Time.timeScale = 1f;
+				UIPaused.SetActive (false);
+
+			}
+
 		}
+
+		/*if ()
+		{  // check to see if beat game
+			EndGame ();
+		}*/
 
 	}
 
@@ -65,8 +82,7 @@ public class GameManager : MonoBehaviour
 		ExitGame.SetActive (true);
 		endGameObjects.SetActive (true);
 
-		BalloonSpawners.SetActive (false);
-		Player.SetActive (false);
+		Time.timeScale = 0f;
 
 		ScoreManager.score = finalScore;
 		crowd.volume = 0.1f;
