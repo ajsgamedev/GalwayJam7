@@ -11,6 +11,7 @@ public class SpawnGameObjects : MonoBehaviour
 
 	private float oldX = 0;
 	private float newX = 0;
+	private float lastSpawnX;
 	private float distanceTravelled = 0;
 
 	public float groundY = -2; // y coordinate for ground 
@@ -20,6 +21,7 @@ public class SpawnGameObjects : MonoBehaviour
 	}
 
 	private float groundWidth;
+	private int initalGroundTiles = 5;
 
 	// Use this for initialization
 	void Start ()
@@ -28,9 +30,10 @@ public class SpawnGameObjects : MonoBehaviour
 		groundWidth = spawnPrefab [(int)SpawningObjects.Ground].GetComponent<Renderer>().bounds.size.y;
 
 		//spawn initial ground
-		for (int i = - 4; i <= 4; i++) {
+		for (int i = - initalGroundTiles; i <= initalGroundTiles; i++) {
 			Vector3 newPos = new Vector3 (oldX + i * groundWidth, groundY);
 			GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
+			lastSpawnX = newPos.x;
 		}
 	}
 
@@ -42,8 +45,6 @@ public class SpawnGameObjects : MonoBehaviour
 		distanceTravelled += newX - oldX;
 		oldX = newX;
 
-		Debug.Log ("distanceTravelled " +  distanceTravelled);
-
 		if (distanceTravelled >= groundWidth) {
 			distanceTravelled = 0;
 			SpawnNewObjects ();
@@ -51,8 +52,10 @@ public class SpawnGameObjects : MonoBehaviour
 	}
 
 	void SpawnNewObjects () {
-		Vector3 newPos = new Vector3 (cameraTransform.transform.position.x + groundWidth, groundY);
-	
+		Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY);
+		lastSpawnX = newPos.x;
+		Debug.Log ("lastSpawn " +  lastSpawnX);
+
 		//spawn new ground
 		GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
 	}
