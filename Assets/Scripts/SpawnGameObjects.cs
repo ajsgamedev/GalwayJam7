@@ -52,11 +52,10 @@ public class SpawnGameObjects : MonoBehaviour
 	}
 
 	void SpawnNewObjects () {
-		Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY);
-		lastSpawnX = newPos.x;
-		Debug.Log ("lastSpawn " +  lastSpawnX);
 
 		//spawn new ground
+		Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY);
+		lastSpawnX = newPos.x;
 		GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
 	}
 }
