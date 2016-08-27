@@ -20,7 +20,8 @@ public class SpawnGameObjects : MonoBehaviour
 
 	public enum SpawningObjects {
 		Ground = 0,
-		ObstacleJump
+		ObstacleJump,
+		ObstacleSlide
 	}
 
 	public float minObstacleInterval = 1.0f;
@@ -91,9 +92,14 @@ public class SpawnGameObjects : MonoBehaviour
 	}
 
 	void SpawnObstacle () {
-		Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight / 2);
 		lastObstacleDistance = 0;
-		GameObject obstacle = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleJump], newPos, transform.rotation) as GameObject;
-			
+
+		if (Random.value <= 0.5) {
+			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight / 2);
+			GameObject obstacle = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleJump], newPos, transform.rotation) as GameObject;			
+		} else {
+			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight * 1.2f);
+			GameObject obstacle1 = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleSlide], newPos, transform.rotation) as GameObject;
+		}	
 	}
 }
