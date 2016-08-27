@@ -112,7 +112,8 @@ public class SpawnGameObjects : MonoBehaviour
 
 	void SpawnPickUp () {
 		if (Random.value < 0.2) {
-			Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY);
+			Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY + Random.value * groundHeight);
+
 
 			float batteryRandom = Random.value;
 
