@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
 	AudioSource music;
 
-	private double finalScore;
+	private int finalScore;
 
 	void Awake ()
 	{
