@@ -21,7 +21,13 @@ public class SpawnGameObjects : MonoBehaviour
 	public enum SpawningObjects {
 		Ground = 0,
 		ObstacleJump,
-		ObstacleSlide
+		ObstacleSlide,
+		PickUpBattery,
+		PickUpBirdNoise,
+		PickUpCrackTalk,
+		PickUpFireStarter,
+		PickUpHeadNovel,
+		PickUpInstaOunce
 	}
 
 	public float minObstacleInterval = 1.0f;
@@ -95,7 +101,7 @@ public class SpawnGameObjects : MonoBehaviour
 		lastObstacleDistance = 0;
 
 		if (Random.value <= 0.5) {
-			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight / 2);
+			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + 0.2f * groundHeight);
 			GameObject obstacle = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleJump], newPos, transform.rotation) as GameObject;			
 		} else {
 			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight * 1.2f);
