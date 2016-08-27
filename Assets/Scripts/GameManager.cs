@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 	void Start ()
 	{
 		Time.timeScale = 1f;
+		ScoreManager.liveLeft = 100;
 		// get a reference to the GameManager component for use by other scripts
 		if (gm == null)
 			gm = this.gameObject.GetComponent<GameManager> ();
@@ -69,10 +70,10 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		/*if ()
+		if (ScoreManager.liveLeft <= 0)
 		{  // check to see if beat game
 			EndGame ();
-		}*/
+		}
 
 	}
 
@@ -95,7 +96,10 @@ public class GameManager : MonoBehaviour
 
 	public void ResetLevel ()
 	{
+		
+		ScoreManager.liveLeft = 100;
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		Time.timeScale = 1f;
 	}
 
 
