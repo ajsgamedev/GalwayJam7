@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnGameObjects : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class SpawnGameObjects : MonoBehaviour
 	private float groundHeight;
 	private int initalGroundTiles = 5;
 
+	private List<GameObject> GroundTiles;
+	private int lastMovedIndex = 0;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -37,11 +41,13 @@ public class SpawnGameObjects : MonoBehaviour
 		groundHeight = spawnPrefab [(int)SpawningObjects.Ground].GetComponent<Renderer>().bounds.size.x;
 
 
+		GroundTiles = new List<GameObject> ();
 		//spawn initial ground
 		for (int i = - initalGroundTiles; i <= initalGroundTiles; i++) {
 			Vector3 newPos = new Vector3 (oldX + i * groundWidth, groundY);
 			GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
 			lastSpawnX = newPos.x;
+			GroundTiles.Add (ground);
 		}
 	}
 
@@ -54,7 +60,7 @@ public class SpawnGameObjects : MonoBehaviour
 		oldX = newX;
 
 		if (distanceTravelled >= groundWidth) {
-			distanceTravelled = 0;
+			distanceTravelled = distanceTravelled - groundWidth;
 			SpawnGround ();
 			lastObstacleDistance++;
 		}
@@ -73,7 +79,10 @@ public class SpawnGameObjects : MonoBehaviour
 		//spawn new ground
 		Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY);
 		lastSpawnX = newPos.x;
-		GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
+		GroundTiles [lastMovedIndex].transform.position = newPos;
+		lastMovedIndex++;
+		if (lastMovedIndex == GroundTiles.Count)
+			lastMovedIndex = 0;
 	}
 
 	void SpawnObstacle () {

@@ -15,12 +15,13 @@ public class GameObjectCleaner : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		Destroy(col.gameObject);
-		Debug.Log (col);
+		if (col.gameObject.tag != "Floor")
+			Destroy(col.gameObject);
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		Destroy(col.gameObject);
+		if (col.gameObject.tag != "Floor")
+			Destroy(col.gameObject);
 	}
 }
