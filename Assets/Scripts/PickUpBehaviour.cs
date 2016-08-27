@@ -25,15 +25,23 @@ public class PickUpBehaviour : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
-			
-			ScoreManager.score += score;
-			HandlePickUp ();
-			Destroy (this.gameObject);
+			if (this.gameObject.tag == "Battery")
+			{
+				Destroy (this.gameObject);
+				ScoreManager.ChangeHealth (+healthDamage);
+
+			}
+			else
+			{
+				ScoreManager.score += score;
+				HandlePickUp ();
+				Destroy (this.gameObject);
+			}
 		}
 	}
 
-	void HandlePickUp()
+	void HandlePickUp ()
 	{
-		ScoreManager.ChangeHealth(-healthDamage);
+		ScoreManager.ChangeHealth (-healthDamage);
 	}
 }
