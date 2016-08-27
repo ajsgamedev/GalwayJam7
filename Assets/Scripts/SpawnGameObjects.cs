@@ -74,6 +74,7 @@ public class SpawnGameObjects : MonoBehaviour
 			distanceTravelled = distanceTravelled - groundWidth;
 
 			SpawnGround ();
+			SpawnPickUp ();
 		} 
 			
 		if (lastObstacleDistance > minObstacleInterval) {
@@ -107,5 +108,22 @@ public class SpawnGameObjects : MonoBehaviour
 			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight * 1.2f);
 			GameObject obstacle1 = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleSlide], newPos, transform.rotation) as GameObject;
 		}	
+	}
+
+	void SpawnPickUp () {
+		if (Random.value < 0.2) {
+			Vector3 newPos = new Vector3 (lastSpawnX + groundWidth, groundY);
+
+			float batteryRandom = Random.value;
+
+			if (batteryRandom > 0.5) {
+				GameObject batteryPickup = Instantiate (spawnPrefab [(int)SpawningObjects.PickUpBattery], newPos, transform.rotation) as GameObject;			
+			} else {
+				int pickUpNumber =  (int) Mathf.Round(Random.value * 5.0f);
+				GameObject randomPickup = Instantiate (spawnPrefab [3 + pickUpNumber], newPos, transform.rotation) as GameObject;			
+
+			}
+		
+		}
 	}
 }
