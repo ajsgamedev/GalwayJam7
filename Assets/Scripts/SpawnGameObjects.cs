@@ -28,7 +28,7 @@ public class SpawnGameObjects : MonoBehaviour
 
 	private float groundWidth;
 	private float groundHeight;
-	private int initalGroundTiles = 5;
+	private int initalGroundTiles = 10;
 
 	private List<GameObject> GroundTiles;
 	private int lastMovedIndex = 0;
@@ -40,6 +40,7 @@ public class SpawnGameObjects : MonoBehaviour
 		groundWidth = spawnPrefab [(int)SpawningObjects.Ground].GetComponent<Renderer>().bounds.size.y;
 		groundHeight = spawnPrefab [(int)SpawningObjects.Ground].GetComponent<Renderer>().bounds.size.x;
 
+		minObstacleInterval = minObstacleInterval * groundWidth; 
 
 		GroundTiles = new List<GameObject> ();
 		//spawn initial ground
@@ -56,20 +57,24 @@ public class SpawnGameObjects : MonoBehaviour
 	{
 		// update distance travelled
 		newX = cameraTransform.transform.position.x;
-		distanceTravelled += newX - oldX;
+
+		distanceTravelled += Mathf.Abs(newX - oldX);
+		lastObstacleDistance += Mathf.Abs (newX - oldX);
 		oldX = newX;
 
+	
 		if (distanceTravelled >= groundWidth) {
 			distanceTravelled = distanceTravelled - groundWidth;
-			SpawnGround ();
-			lastObstacleDistance++;
-		}
 
-		Debug.Log (lastObstacleDistance);
+			SpawnGround ();
+		} 
+			
 		if (lastObstacleDistance > minObstacleInterval) {
-			if (Random.value < 0.2) {
+			if (Random.value < 0.8) {
 				SpawnObstacle ();
-			}
+			} 
+			lastObstacleDistance = 0;
+
 		}
 
 	}
@@ -86,7 +91,7 @@ public class SpawnGameObjects : MonoBehaviour
 	}
 
 	void SpawnObstacle () {
-		Vector3 newPos = new Vector3 (lastSpawnX + groundWidth * Random.value, groundY + groundHeight / 2);
+		Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight / 2);
 		lastObstacleDistance = 0;
 		GameObject obstacle = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleJump], newPos, transform.rotation) as GameObject;
 			
