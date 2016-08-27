@@ -7,8 +7,7 @@ public class PickUpBehaviour : MonoBehaviour
 
 	public int score;
 	public int healthDamage;
-	public int totalLife = 100;
-	public int liveLeft = 100;
+
 
 	// Use this for initialization
 	void Start ()
@@ -30,15 +29,11 @@ public class PickUpBehaviour : MonoBehaviour
 			ScoreManager.score += score;
 			HandlePickUp ();
 			Destroy (this.gameObject);
-
 		}
 	}
 
 	void HandlePickUp()
 	{
-		liveLeft -= healthDamage;
-		GameObject.FindGameObjectWithTag ("Health").GetComponent<Image> ().fillAmount = 
-			(float)liveLeft / totalLife;
-		
+		ScoreManager.ChangeHealth(-healthDamage);
 	}
 }

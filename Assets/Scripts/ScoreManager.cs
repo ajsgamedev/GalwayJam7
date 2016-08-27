@@ -6,6 +6,8 @@ using System;
 public class ScoreManager : MonoBehaviour
 {
 	public static int score;        // The player's score.
+	public static int totalLife = 100;
+	public static int liveLeft = 100;
 
 	Text text;                      // Reference to the Text component.
 
@@ -28,4 +30,13 @@ public class ScoreManager : MonoBehaviour
 		}
 		text.text = "Score: " + score;
 	}
+
+	public static void ChangeHealth (int change) {
+		liveLeft += change;
+		liveLeft = Math.Min (totalLife, liveLeft);
+		GameObject.FindGameObjectWithTag ("Health").GetComponent<Image> ().fillAmount = 
+			(float)liveLeft / totalLife;
+
+	}
+
 }
