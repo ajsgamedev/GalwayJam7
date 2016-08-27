@@ -49,3 +49,7 @@ Temp/UnityLockfile
 Library/assetDatabase3
 *.txt
 Library/assetDatabase3
+*.db
+Library/assetDatabase3
+*.info
+Temp/UnityTempFile-30ba7481fc12cc44284ecedbea4a357a
