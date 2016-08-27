@@ -5,35 +5,55 @@ public class SpawnGameObjects : MonoBehaviour
 {
 	public GameObject[] spawnPrefab;
 
-	public float minSecondsBetweenSpawning = 3.0f;
-	public float maxSecondsBetweenSpawning = 6.0f;
-
-	private float savedTime;
-	private float secondsBetweenSpawning;
 	private int randNum;
 
+	public Transform cameraTransform; // reference to Camera position
+
+	private float oldX = 0;
+	private float newX = 0;
+	private float distanceTravelled = 0;
+
+	public float groundY = -2; // y coordinate for ground 
+
+	public enum SpawningObjects {
+		Ground = 0
+	}
+
+	private float groundWidth;
 
 	// Use this for initialization
 	void Start ()
 	{
-		savedTime = Time.time;
-		secondsBetweenSpawning = Random.Range (minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
+		oldX = cameraTransform.transform.position.x;
+		groundWidth = spawnPrefab [(int)SpawningObjects.Ground].GetComponent<Renderer>().bounds.size.y;
+
+		//spawn initial ground
+		for (int i = - 4; i <= 4; i++) {
+			Vector3 newPos = new Vector3 (oldX + i * groundWidth, groundY);
+			GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
+		}
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Time.time - savedTime >= secondsBetweenSpawning) // is it time to spawn again?
-		{
-			MakeThingToSpawn ();
-			savedTime = Time.time; // store for next spawn
-			secondsBetweenSpawning = Random.Range (minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
-		}	
+		// update distance travelled
+		newX = cameraTransform.transform.position.x;
+		distanceTravelled += newX - oldX;
+		oldX = newX;
+
+		Debug.Log ("distanceTravelled " +  distanceTravelled);
+
+		if (distanceTravelled >= groundWidth) {
+			distanceTravelled = 0;
+			SpawnNewObjects ();
+		}
 	}
 
-	void MakeThingToSpawn ()
-	{
-		randNum = Random.Range (0, spawnPrefab.Length);
-		GameObject clone = Instantiate (spawnPrefab [randNum], transform.position, transform.rotation) as GameObject;
+	void SpawnNewObjects () {
+		Vector3 newPos = new Vector3 (cameraTransform.transform.position.x + groundWidth, groundY);
+	
+		//spawn new ground
+		GameObject ground = Instantiate (spawnPrefab [(int)SpawningObjects.Ground], newPos, transform.rotation) as GameObject;
 	}
 }
