@@ -37,6 +37,12 @@ public class ScoreManager : MonoBehaviour
 		GameObject.FindGameObjectWithTag ("Health").GetComponent<Image> ().fillAmount = 
 			(float)liveLeft / totalLife;
 
+		if (liveLeft <= 0) {
+			GameObject gm = GameObject.Find("GameManager");
+			GameManager gmScript = gm.GetComponent<GameManager>();
+			gmScript.EndGame (); 
+		}
+
 	}
 
 }
