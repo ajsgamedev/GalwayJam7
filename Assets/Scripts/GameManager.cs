@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 	public static GameManager gm;
 
 	//public AudioSource crowd;
-	//public AudioSource song;
+	public AudioSource song;
 
 	public GameObject GameOver;
 	public GameObject ResetGame;
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 		ScoreManager.score = finalScore;
 		//crowd.volume = 0.1f;
 		//song.volume = 0.6f;
-		//song.pitch = 0.8f;
+		song.pitch = 0.7f;
 	}
 
 	public void ResetLevel ()
