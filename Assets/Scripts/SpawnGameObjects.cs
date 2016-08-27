@@ -105,7 +105,7 @@ public class SpawnGameObjects : MonoBehaviour
 			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + 0.2f * groundHeight);
 			GameObject obstacle = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleJump], newPos, transform.rotation) as GameObject;			
 		} else {
-			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight * 1.2f);
+			Vector3 newPos = new Vector3 (lastSpawnX + lastObstacleDistance +  (-0.5f + Random.value) * groundWidth, groundY + groundHeight);
 			GameObject obstacle1 = Instantiate (spawnPrefab [(int)SpawningObjects.ObstacleSlide], newPos, transform.rotation) as GameObject;
 		}	
 	}
