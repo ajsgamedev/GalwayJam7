@@ -24,7 +24,7 @@ public class SpawnGameObjects : MonoBehaviour
 	}
 
 	public float minObstacleInterval = 1.0f;
-	private int lastObstacleDistance = 0;
+	private float lastObstacleDistance = 0;
 
 	private float groundWidth;
 	private float groundHeight;
