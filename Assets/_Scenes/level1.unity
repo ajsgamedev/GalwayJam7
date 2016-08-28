@@ -380,7 +380,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   Priority: 128
@@ -450,6 +450,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 827276992}
   - 223: {fileID: 827276991}
+  - 114: {fileID: 827276993}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -495,6 +496,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &827276993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 827276990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
 --- !u!1 &841732493
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,8 +809,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.3560796, y: 76.96525}
-  m_SizeDelta: {x: 800, y: 286}
+  m_AnchoredPosition: {x: 0, y: 71.29}
+  m_SizeDelta: {x: 800, y: 277}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1374848820
 MonoBehaviour:
